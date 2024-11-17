@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Woodworkers Friend</string>
+    <string name="functions_list">Functions List</string>
+    <string name="board_foot_calculator">Board Foot Calculator</string>
+    <string name="unit_conversion">Unit Conversion</string>
+</resources>
