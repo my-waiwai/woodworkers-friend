@@ -11,6 +11,9 @@ sealed interface Screen : Parcelable {
     @Parcelize
     object FunctionsList : Screen
 
+    @Parcelize
+    object JankaHardness : Screen
+
 //    @Parcelize
 //    data class PortfolioDetail(val portfolioDetailMainData: PortfolioDetailUiItem) : Screen
 
@@ -21,10 +24,10 @@ sealed interface Screen : Parcelable {
 //    ) : Screen
 
     @Parcelize
-    object UnitConversion : Screen
+    object Settings : Screen
 
     @Parcelize
-    object Settings : Screen
+    object UnitConversion : Screen
 
 //    @Parcelize
 //    object Help : Screen
