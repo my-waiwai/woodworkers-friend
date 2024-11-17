@@ -1,4 +1,4 @@
-package com.woodworkersfriend.presentation.ui.functionslist
+package com.woodworkersfriend.presentation.ui.jankahardness
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -20,12 +20,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import com.woodworkersfriend.presentation.R
 import com.woodworkersfriend.presentation.common.DEFAULT_HORIZONTAL_PADDING
 import com.woodworkersfriend.presentation.common.DEFAULT_VERTICAL_PADDING
 import com.woodworkersfriend.presentation.models.Screen
-import com.woodworkersfriend.presentation.ui.icons.Calculate
-import com.woodworkersfriend.presentation.ui.icons.Keyboard_double_arrow_down
+import com.woodworkersfriend.presentation.ui.icons.Arrow_back
+import com.woodworkersfriend.presentation.ui.icons.Info
 import com.woodworkersfriend.presentation.ui.icons.Measuring_tape
 import com.woodworkersfriend.presentation.ui.theme.SolarizedBase01
 import com.woodworkersfriend.presentation.ui.theme.SolarizedBase03
@@ -36,13 +37,13 @@ import com.woodworkersfriend.presentation.ui.theme.setThemeColor
 import com.woodworkersfriend.presentation.ui.theme.setTopAppBarColors
 import dev.olshevski.navigation.reimagined.NavController
 import dev.olshevski.navigation.reimagined.hilt.hiltViewModel
-import dev.olshevski.navigation.reimagined.navigate
+import dev.olshevski.navigation.reimagined.pop
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FunctionsListScreen(
+fun JankaHardnessScreen(
     navController: NavController<Screen>,
-    viewModel: FunctionsListViewModel = hiltViewModel()
+    viewModel: JankaHardnessViewModel = hiltViewModel()
 ) {
 
     Scaffold(
@@ -55,44 +56,29 @@ fun FunctionsListScreen(
                         modifier = Modifier,
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.Start
-                    ) { Text(text = stringResource(R.string.functions_list)) }
+                    ) { Text(text = stringResource(R.string.janka_hardness)) }
+                },
+                navigationIcon = {
+                    IconButton(onClick = {
+                        navController.pop()
+                    }) {
+                        Icon(
+                            painter = rememberVectorPainter(Arrow_back),
+                            contentDescription = "Return to previous screen",
+                            modifier = Modifier.padding(start = 12.dp),
+                            tint = setThemeColor(SolarizedBase01, SolarizedBase1)
+                        )
+                    }
                 },
                 actions = {
-//                    Row(modifier = Modifier.padding(end = 16.dp)) {
-//                        if (delete.value) {
-//                            IconButton(
-//                                enabled = acceptRemoveEnabled.value,
-//                                onClick = {
-//                                    showConfirmationDialog.value = true
-//                                }) {
-//                                Icon(
-//                                    imageVector = Check,
-//                                    contentDescription = "Localized description"
-//                                )
-//                            }
-//                            IconButton(onClick = {
-//                                clearSelected.value = true
-//                            }) {
-//                                Icon(
-//                                    imageVector = Cancel,
-//                                    contentDescription = "Localized description"
-//                                )
-//                            }
-//                        } else {
-//                            IconButton(onClick = { showAddPortfolioCard.value = true }) {
-//                                Icon(
-//                                    imageVector = Add,
-//                                    contentDescription = "Localized description"
-//                                )
-//                            }
-//                            IconButton(onClick = { delete.value = true }) {
-//                                Icon(
-//                                    imageVector = Delete,
-//                                    contentDescription = "Localized description"
-//                                )
-//                            }
-//                        }
-//                    }
+                    Row(modifier = Modifier.padding(end = 16.dp)) {
+                        IconButton(onClick = { /* do something */ }) {
+                            Icon(
+                                imageVector = Info,
+                                contentDescription = "Localized description"
+                            )
+                        }
+                    }
                 },
                 colors = setTopAppBarColors()
                 //scrollBehavior = scrollBehavior,
@@ -106,28 +92,20 @@ fun FunctionsListScreen(
             modifier = Modifier.padding(vertical = DEFAULT_HORIZONTAL_PADDING),
             content = {
                 item() {
-                    UnitConversionCard(navController)
+                    UnitConversionCard()
                 }
 
                 item() {
-                    BoardFootCalculatorCard(navController)
-                }
-
-                item() {
-                    JankaHardnessCard(navController)
+                    BoardFootCalculator()
                 }
             },
         )
     }
+
 }
 
-
 @Composable
-fun BoardFootCalculatorCard(navController: NavController<Screen>) {
-    val goToBoardFootCalculator: () -> Unit = {
-        navController.navigate(Screen.BoardFootCalculator)
-    }
-
+fun BoardFootCalculator() {
     Card(
         modifier = Modifier
             .wrapContentHeight()
@@ -135,7 +113,15 @@ fun BoardFootCalculatorCard(navController: NavController<Screen>) {
             .padding(horizontal = DEFAULT_HORIZONTAL_PADDING),
         colors = setCardColors(),
         onClick = {
-            goToBoardFootCalculator()
+//                            goToPortfolioDetail(
+//                                with(portfolio) {
+//                                    PortfolioDetailUiItem(
+//                                        id = id,
+//                                        name = name,
+//                                        selectedForDeletion = false,
+//                                    )
+//                                }
+//                            )
         }
     ) {
         Row(
@@ -147,7 +133,7 @@ fun BoardFootCalculatorCard(navController: NavController<Screen>) {
                     /* do something */
                 }) {
                 Icon(
-                    painter = rememberVectorPainter(Calculate),
+                    painter = rememberVectorPainter(Measuring_tape),
                     contentDescription = "Return to previous screen",
                     tint = setThemeColor(SolarizedBase01, SolarizedBase1)
                 )
@@ -160,14 +146,8 @@ fun BoardFootCalculatorCard(navController: NavController<Screen>) {
     }
 }
 
-
 @Composable
-fun JankaHardnessCard(navController: NavController<Screen>) {
-    val goToJankaHardness: () -> Unit = {
-        navController.navigate(Screen.JankaHardness)
-    }
-
-
+fun UnitConversionCard() {
     Card(
         modifier = Modifier
             .wrapContentHeight()
@@ -175,47 +155,15 @@ fun JankaHardnessCard(navController: NavController<Screen>) {
             .padding(horizontal = DEFAULT_HORIZONTAL_PADDING),
         colors = setCardColors(),
         onClick = {
-            goToJankaHardness()
-        }
-    ) {
-        Row(
-            modifier = Modifier.fillMaxSize(),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            IconButton(
-                onClick = {
-                    /* do something */
-                }) {
-                Icon(
-                    painter = rememberVectorPainter(Keyboard_double_arrow_down),
-                    contentDescription = "Return to previous screen",
-                    tint = setThemeColor(SolarizedBase01, SolarizedBase1)
-                )
-            }
-            Text(
-                text = "Janka Hardness",
-                style = MaterialTheme.typography.titleLarge,
-            )
-        }
-    }
-}
-
-
-@Composable
-fun UnitConversionCard(navController: NavController<Screen>) {
-    val goToUnitConversion: () -> Unit = {
-        navController.navigate(Screen.UnitConversion)
-    }
-
-
-    Card(
-        modifier = Modifier
-            .wrapContentHeight()
-            .fillMaxWidth()
-            .padding(horizontal = DEFAULT_HORIZONTAL_PADDING),
-        colors = setCardColors(),
-        onClick = {
-            goToUnitConversion()
+//                            goToPortfolioDetail(
+//                                with(portfolio) {
+//                                    PortfolioDetailUiItem(
+//                                        id = id,
+//                                        name = name,
+//                                        selectedForDeletion = false,
+//                                    )
+//                                }
+//                            )
         }
     ) {
         Row(

@@ -45,6 +45,7 @@ import dev.olshevski.navigation.reimagined.rememberNavController
 import kotlin.getValue
 import com.woodworkersfriend.presentation.ui.boardfootcalculator.BoardFootCalculatorScreen
 import com.woodworkersfriend.presentation.ui.functionslist.FunctionsListScreen
+import com.woodworkersfriend.presentation.ui.jankahardness.JankaHardnessScreen
 import com.woodworkersfriend.presentation.ui.unitconversion.UnitConversionScreen
 
 
@@ -92,6 +93,7 @@ class MainActivity : ComponentActivity() {
                         ) {
                             BottomNavigationItem.entries.forEach { item ->
                                 NavigationBarItem(
+                                    alwaysShowLabel = false,
                                     icon = { Icon(item.icon, contentDescription = stringResource(id = item.title)) },
                                     label = { Text(stringResource(id = item.title)) },
                                     selected = item.route == currentDestination,
@@ -117,6 +119,7 @@ class MainActivity : ComponentActivity() {
                                 when (route) {
                                     is Screen.FunctionsList -> { FunctionsListScreen(navController = navController, viewModel = startDestinationViewModel) }
                                     is Screen.BoardFootCalculator -> { BoardFootCalculatorScreen(navController = navController) }
+                                    is Screen.JankaHardness -> { JankaHardnessScreen(navController = navController) }
                                     is Screen.UnitConversion -> { UnitConversionScreen(navController = navController) }
 //                                    is Screen.Search -> { SearchScreen(navController = navController) }
 //                                    is Screen.Help -> { HelpScreen(navController = navController) }

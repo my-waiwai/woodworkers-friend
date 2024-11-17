@@ -6,6 +6,9 @@ import androidx.compose.ui.unit.dp
 import com.woodworkersfriend.presentation.R
 import com.woodworkersfriend.presentation.models.Screen
 import com.woodworkersfriend.presentation.ui.icons.Apps
+import com.woodworkersfriend.presentation.ui.icons.Calculate
+import com.woodworkersfriend.presentation.ui.icons.Keyboard_double_arrow_down
+import com.woodworkersfriend.presentation.ui.icons.Measuring_tape
 
 enum class BottomNavigationItem(val route: Screen,
                                 val icon: ImageVector,
@@ -16,22 +19,21 @@ enum class BottomNavigationItem(val route: Screen,
         icon = Apps,
         title = R.string.functions_list
     ),
-//    SearchItem(
-//        route = Screen.Search,
-//        icon = Search,
-//        title = R.string.search
-//    ),
-//    HelpItem(
-//        route = Screen.Help,
-//        icon = Question_mark,
-//        title = R.string.help
-//    ),
-//    SettingsItem(
-//        route = Screen.Settings,
-//        icon = Settings,
-//        title = R.string.settings
-//    )
-
+    UnitConversionItem(
+        route = Screen.UnitConversion,
+        icon = Measuring_tape,
+        title = R.string.unit_conversion
+    ),
+    BoardFootCalculatorItem(
+        route = Screen.BoardFootCalculator,
+        icon = Calculate,
+        title = R.string.board_foot_calculator
+    ),
+    JankaHardnessItem(
+        route = Screen.JankaHardness,
+        icon = Keyboard_double_arrow_down,
+        title = R.string.janka_hardness
+    ),
 }
 
 
